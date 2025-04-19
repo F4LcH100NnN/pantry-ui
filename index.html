@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PantryDB</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #e7f5e1; /* light green */
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -38,21 +43,24 @@
     const API_BASE = 'https://pantrydb.onrender.com/api/items';
     let allItems = [];
 
+    function formatDateToDanish(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('da-DK');
+    }
+
     async function loadItems() {
       const res = await fetch(API_BASE);
       allItems = await res.json();
-    
-      // Normalize casing from API
+
       allItems = allItems.map(item => ({
-        ...item,
+        id: item.id,
         itemName: item.itemName || item.ItemName,
         itemQTY: item.itemQTY || item.ItemQTY,
         itemBBDate: item.itemBBDate || item.ItemBBDate
       }));
-    
+
       displayItems(allItems);
     }
-
 
     function displayItems(items) {
       const tbody = document.querySelector('#itemsTable tbody');
@@ -62,7 +70,7 @@
         row.innerHTML = `
           <td>${item.itemName}</td>
           <td>${item.itemQTY}</td>
-          <td>${item.itemBBDate.split('T')[0]}</td>
+          <td>${formatDateToDanish(item.itemBBDate)}</td>
           <td>
             <button onclick="deleteItem(${item.id})">Delete</button>
           </td>
