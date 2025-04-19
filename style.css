@@ -1,6 +1,7 @@
+/* General layout */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f7f9;
+  background-color: #e7f5e1; /* Light green background */
   margin: 0;
   padding: 0;
 }
@@ -19,26 +20,70 @@ h1, h2 {
   text-align: center;
 }
 
+/* Form and inputs */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 input[type="text"],
 input[type="number"],
 input[type="date"] {
-  width: calc(33% - 10px);
   padding: 10px;
-  margin: 5px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
 }
 
+input[type="text"] {
+  flex: 2;
+}
+input[type="number"],
+input[type="date"] {
+  flex: 1;
+}
+
 #searchInput {
   width: 100%;
-  margin-bottom: 20px;
   padding: 12px;
+  margin: 20px 0;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
 
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+td input[type="number"],
+td input[type="date"] {
+  width: 100%;
+  padding: 4px;
+}
+
+/* Button styles */
 button {
   padding: 6px 12px;
   margin: 2px;
@@ -62,34 +107,4 @@ button.delete-btn {
 
 button:hover {
   opacity: 0.9;
-}
-
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table thead {
-  background-color: #007bff;
-  color: white;
-}
-
-table th, table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-td:last-child button {
-  background-color: #dc3545;
-}
-
-td:last-child button:hover {
-  background-color: #c82333;
 }
