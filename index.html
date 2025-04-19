@@ -7,13 +7,21 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background-color: #000000; /* light green */
+      background-color: #e7f5e1; /* light green */
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>PantryDB</h1>
+
+    <h2>Add New Item</h2>
+    <form id="addItemForm">
+      <input type="text" id="itemName" placeholder="Item name" required>
+      <input type="number" id="itemQty" placeholder="Quantity" required>
+      <input type="date" id="itemBBDate" required>
+      <button type="submit">Add Item</button>
+    </form>
 
     <input type="text" id="searchInput" placeholder="Search items...">
 
@@ -28,14 +36,6 @@
       </thead>
       <tbody></tbody>
     </table>
-
-    <h2>Add New Item</h2>
-    <form id="addItemForm">
-      <input type="text" id="itemName" placeholder="Item name" required>
-      <input type="number" id="itemQty" placeholder="Quantity" required>
-      <input type="date" id="itemBBDate" required>
-      <button type="submit">Add Item</button>
-    </form>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
