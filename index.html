@@ -14,6 +14,11 @@
       display: block;
       margin: 20px auto;
     }
+    td input[type="number"],
+    td input[type="date"] {
+      width: 100%;
+      padding: 4px;
+    }
   </style>
 </head>
 <body>
@@ -53,6 +58,10 @@
       return date.toLocaleDateString('da-DK');
     }
 
+    function formatDateInput(dateString) {
+      return new Date(dateString).toISOString().split('T')[0];
+    }
+
     async function loadItems() {
       const res = await fetch(API_BASE);
       allItems = await res.json();
@@ -74,14 +83,32 @@
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${item.itemName}</td>
-          <td>${item.itemQTY}</td>
-          <td>${formatDateToDanish(item.itemBBDate)}</td>
+          <td><input type="number" value="${item.itemQTY}" id="qty-${item.id}"></td>
+          <td><input type="date" value="${formatDateInput(item.itemBBDate)}" id="date-${item.id}"></td>
           <td>
+            <button onclick="saveItem(${item.id})">Save</button>
             <button onclick="deleteItem(${item.id})">Delete</button>
           </td>
         `;
         tbody.appendChild(row);
       });
+    }
+
+    async function saveItem(id) {
+      const item = allItems.find(i => i.id === id);
+      const updatedItem = {
+        id: id,
+        itemName: item.itemName,
+        itemQTY: parseInt(document.getElementById(`qty-${id}`).value),
+        itemBBDate: document.getElementById(`date-${id}`).value
+      };
+
+      await fetch(`${API_BASE}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedItem)
+      });
+      loadItems();
     }
 
     async function deleteItem(id) {
