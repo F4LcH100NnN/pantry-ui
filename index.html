@@ -27,9 +27,9 @@
       color: white;
       cursor: pointer;
     }
-    button:nth-child(1) { background-color: #4caf50; } /* Add - Green */
-    button:nth-child(2) { background-color: #ff9800; } /* Took - Orange */
-    button:nth-child(3) { background-color: #f44336; } /* Delete - Red */
+    button.add-btn { background-color: #4caf50; }   /* Green */
+    button.take-btn { background-color: #ff9800; }  /* Orange */
+    button.delete-btn { background-color: #f44336; } /* Red */
     button:hover {
       opacity: 0.9;
     }
@@ -104,9 +104,9 @@
           <td><input type="number" value="${item.itemQTY}" id="qty-${item.id}"></td>
           <td><input type="date" value="${formatDateInput(item.itemBBDate)}" id="date-${item.id}"></td>
           <td>
-            <button onclick="addItemQty(${item.id})">Add</button>
-            <button onclick="takeItem(${item.id})">Took</button>
-            <button onclick="deleteItem(${item.id})">Delete</button>
+            <button class="add-btn" onclick="addItemQty(${item.id})">Add</button>
+            <button class="take-btn" onclick="takeItem(${item.id})">Took</button>
+            <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
           </td>
         `;
         tbody.appendChild(row);
