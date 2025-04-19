@@ -27,7 +27,7 @@
       color: white;
       cursor: pointer;
     }
-    button:nth-child(1) { background-color: #2196f3; } /* Save - Blue */
+    button:nth-child(1) { background-color: #4caf50; } /* Add - Green */
     button:nth-child(2) { background-color: #ff9800; } /* Took - Orange */
     button:nth-child(3) { background-color: #f44336; } /* Delete - Red */
     button:hover {
@@ -104,13 +104,23 @@
           <td><input type="number" value="${item.itemQTY}" id="qty-${item.id}"></td>
           <td><input type="date" value="${formatDateInput(item.itemBBDate)}" id="date-${item.id}"></td>
           <td>
-            <button onclick="saveItem(${item.id})">Save</button>
+            <button onclick="addItemQty(${item.id})">Add</button>
             <button onclick="takeItem(${item.id})">Took</button>
             <button onclick="deleteItem(${item.id})">Delete</button>
           </td>
         `;
         tbody.appendChild(row);
       });
+    }
+
+    async function addItemQty(id) {
+      const currentQty = parseInt(document.getElementById(`qty-${id}`).value);
+      const amount = prompt("How many did you add?");
+      const num = parseInt(amount);
+      if (isNaN(num) || num <= 0) return alert("Invalid number");
+      const newQty = currentQty + num;
+      document.getElementById(`qty-${id}`).value = newQty;
+      saveItem(id);
     }
 
     async function saveItem(id) {
