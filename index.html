@@ -27,15 +27,9 @@
       color: white;
       cursor: pointer;
     }
-    button.add-btn {
-      background-color: #4caf50;
-    }
-    button.take-btn {
-      background-color: #ff9800;
-    }
-    button.delete-btn {
-      background-color: #f44336;
-    }
+    button.add-btn { background-color: #4caf50; }   /* Green */
+    button.take-btn { background-color: #ff9800; }  /* Orange */
+    button.delete-btn { background-color: #f44336; } /* Red */
     button:hover {
       opacity: 0.9;
     }
@@ -87,39 +81,17 @@
     }
 
     async function loadItems() {
-      try {
-        const res = await fetch(API_BASE);
-        let items = await res.json();
+      const res = await fetch(API_BASE);
+      allItems = await res.json();
 
-        if (!items.length) {
-          console.warn("API is empty. Attempting to load from backup...");
-          const backupRes = await fetch("backup.json");
-          items = await backupRes.json();
-          alert("Loaded data from backup. API appears empty.");
+      allItems = allItems.map(item => ({
+        id: item.id,
+        itemName: item.itemName || item.ItemName,
+        itemQTY: item.itemQTY || item.ItemQTY,
+        itemBBDate: item.itemBBDate || item.ItemBBDate
+      }));
 
-          for (const item of items) {
-          await fetch(API_BASE, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(item)
-          });
-        }
-        alert("Backup restored to the API.");
-        return loadItems();
-        }
-
-        allItems = items.map(item => ({
-          id: item.id,
-          itemName: item.itemName || item.ItemName,
-          itemQTY: item.itemQTY || item.ItemQTY,
-          itemBBDate: item.itemBBDate || item.ItemBBDate
-        }));
-
-        displayItems(allItems);
-      } catch (err) {
-        console.error("Failed to load data:", err);
-        alert("Error loading data. Please check your internet or try again later.");
-      }
+      displayItems(allItems);
     }
 
     function displayItems(items) {
