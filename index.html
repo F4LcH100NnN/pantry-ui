@@ -81,18 +81,31 @@
     }
 
     async function loadItems() {
-      const res = await fetch(API_BASE);
-      allItems = await res.json();
-
-      allItems = allItems.map(item => ({
-        id: item.id,
-        itemName: item.itemName || item.ItemName,
-        itemQTY: item.itemQTY || item.ItemQTY,
-        itemBBDate: item.itemBBDate || item.ItemBBDate
-      }));
-
-      displayItems(allItems);
+      try {
+        const res = await fetch(API_BASE);
+        let items = await res.json();
+    
+        if (!items.length) {
+          console.warn("API is empty. Attempting to load from backup...");
+          const backupRes = await fetch("backup.json"); // or full GitHub Pages URL
+          items = await backupRes.json();
+          alert("Loaded data from backup. API appears empty.");
+        }
+    
+        allItems = items.map(item => ({
+          id: item.id,
+          itemName: item.itemName || item.ItemName,
+          itemQTY: item.itemQTY || item.ItemQTY,
+          itemBBDate: item.itemBBDate || item.ItemBBDate
+        }));
+    
+        displayItems(allItems);
+      } catch (err) {
+        console.error("Failed to load data:", err);
+        alert("Error loading data. Please check your internet or try again later.");
+      }
     }
+
 
     function displayItems(items) {
       const tbody = document.querySelector('#itemsTable tbody');
