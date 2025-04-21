@@ -10,7 +10,7 @@ body {
   max-width: 900px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: #e7f5e1; /* Also light green for uniformity */
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -94,7 +94,7 @@ button {
 }
 
 button.add-btn {
-  background-color: #4caf50; /* Green */
+  background-color: #007bff; /* Blue for visibility */
 }
 
 button.take-btn {
