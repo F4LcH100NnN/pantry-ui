@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background-color: #e7f5e1; /* light green */
+      background-color: #e7f5e1;
     }
     #searchInput {
       max-width: 400px;
@@ -27,7 +27,7 @@
       color: white;
       cursor: pointer;
     }
-    button.add-btn { background-color: #4caf50; }   /* Green */
+    button.add-btn { background-color: #007bff; }   /* Blue */
     button.take-btn { background-color: #ff9800; }  /* Orange */
     button.delete-btn { background-color: #f44336; } /* Red */
     button:hover {
@@ -39,23 +39,23 @@
   <div class="container">
     <h1>PantryDB</h1>
 
-    <h2>Add New Item</h2>
+    <h2>Tilføj Nyt Element</h2>
     <form id="addItemForm">
-      <input type="text" id="itemName" placeholder="Item name" required>
-      <input type="number" id="itemQty" placeholder="Quantity" required>
+      <input type="text" id="itemName" placeholder="Varenavn" required>
+      <input type="number" id="itemQty" placeholder="Antal" required>
       <input type="date" id="itemBBDate" required>
-      <button type="submit" style="color:blue">Add Item</button>
+      <button type="submit" class="add-btn">Tilføj Vare</button>
     </form>
 
-    <input type="text" id="searchInput" placeholder="Search items...">
+    <input type="text" id="searchInput" placeholder="Søg varer...">
 
     <table id="itemsTable">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Best Before</th>
-          <th>Actions</th>
+          <th>Navn</th>
+          <th>Antal</th>
+          <th>Bedst Før</th>
+          <th>Handlinger</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -104,9 +104,9 @@
           <td><input type="number" value="${item.itemQTY}" id="qty-${item.id}"></td>
           <td><input type="date" value="${formatDateInput(item.itemBBDate)}" id="date-${item.id}"></td>
           <td>
-            <button class="add-btn" onclick="addItemQty(${item.id})">Add</button>
-            <button class="take-btn" onclick="takeItem(${item.id})">Took</button>
-            <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+            <button class="add-btn" onclick="addItemQty(${item.id})">Tilføj</button>
+            <button class="take-btn" onclick="takeItem(${item.id})">Taget</button>
+            <button class="delete-btn" onclick="deleteItem(${item.id})">Slet</button>
           </td>
         `;
         tbody.appendChild(row);
@@ -115,9 +115,9 @@
 
     async function addItemQty(id) {
       const currentQty = parseInt(document.getElementById(`qty-${id}`).value);
-      const amount = prompt("How many did you add?");
+      const amount = prompt("Hvor mange har du tilføjet?");
       const num = parseInt(amount);
-      if (isNaN(num) || num <= 0) return alert("Invalid number");
+      if (isNaN(num) || num <= 0) return alert("Ugyldigt tal");
       const newQty = currentQty + num;
       document.getElementById(`qty-${id}`).value = newQty;
       saveItem(id);
@@ -142,9 +142,9 @@
 
     async function takeItem(id) {
       const currentQty = parseInt(document.getElementById(`qty-${id}`).value);
-      const amount = prompt("How many did you take?");
+      const amount = prompt("Hvor mange har du taget?");
       const num = parseInt(amount);
-      if (isNaN(num) || num <= 0) return alert("Invalid number");
+      if (isNaN(num) || num <= 0) return alert("Ugyldigt tal");
       const newQty = Math.max(0, currentQty - num);
       document.getElementById(`qty-${id}`).value = newQty;
       saveItem(id);
