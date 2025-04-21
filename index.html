@@ -97,17 +97,15 @@
           items = await backupRes.json();
           alert("Loaded data from backup. API appears empty.");
 
-          if (confirm("Do you want to restore this backup to the server?")) {
-            for (const item of items) {
-              await fetch(API_BASE, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(item)
-              });
-            }
-            alert("Backup restored to the API.");
-            return loadItems();
-          }
+          for (const item of items) {
+          await fetch(API_BASE, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(item)
+          });
+        }
+        alert("Backup restored to the API.");
+        return loadItems();
         }
 
         allItems = items.map(item => ({
